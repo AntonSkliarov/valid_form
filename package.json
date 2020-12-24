@@ -1,0 +1,29 @@
+{
+  "name": "valid_form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonSkliarov/valid_form.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonSkliarov/valid_form/issues"
+  },
+  "homepage": "https://github.com/AntonSkliarov/valid_form#readme",
+  "devDependencies": {
+    "@linthtml/linthtml": "^0.6.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "parcel-bundler": "^1.12.4"
+  }
+}
