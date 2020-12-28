@@ -35,17 +35,33 @@ input, button, textarea, select {
 }
 
 .form-container {
-  width: 370px;
+  width: 500px;
   padding: 40px;
 }
 
 .user-form__input-container {
-  position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
-.user-form__name-input, .user-form__surname-input, .user-form__phone-input, .user-form__pass-input {
+.user-form__label {
+  position: relative;
+  font-weight: 700;
+}
+.user-form__input {
   position: absolute;
-  right: 0;
+  left: 100px;
+  width: 250px;
+  font-weight: 400;
+}
+
+html {
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+.error {
+  position: absolute;
+  left: 140px;
+  margin-top: 7px;
+  color: #ff0000;
 }
 
 /*# sourceMappingURL=/main.22a94128.css.map */
