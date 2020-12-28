@@ -24,6 +24,13 @@ const validateForm = (event) => {
     errorText: null,
   };
 
+  const email = {
+    title: 'Email',
+    input: document.getElementById('email'),
+    container: document.querySelector('#email-container'),
+    errorText: null,
+  };
+
   // text type validation start
   const validateTextTypeInput = (el) => {
     const textTypeElement = el;
@@ -113,6 +120,11 @@ const validateForm = (event) => {
 
   isFieldsValid.push(validateTelTypeInput());
   // phone validation end
+
+  // email validation start
+
+  // email validation start
+
   const isAllFieldsValid = isFieldsValid.every((fieldValid) => fieldValid === true);
 
   if (!isAllFieldsValid) {

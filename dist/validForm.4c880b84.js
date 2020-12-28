@@ -160,6 +160,12 @@ var validateForm = function validateForm(event) {
     input: document.getElementById('phone'),
     container: document.querySelector('#phone-container'),
     errorText: null
+  };
+  var email = {
+    title: 'Email',
+    input: document.getElementById('email'),
+    container: document.querySelector('#email-container'),
+    errorText: null
   }; // text type validation start
 
   var validateTextTypeInput = function validateTextTypeInput(el) {
@@ -242,6 +248,8 @@ var validateForm = function validateForm(event) {
   };
 
   isFieldsValid.push(validateTelTypeInput()); // phone validation end
+  // email validation start
+  // email validation start
 
   var isAllFieldsValid = isFieldsValid.every(function (fieldValid) {
     return fieldValid === true;
@@ -282,7 +290,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53307" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52651" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
