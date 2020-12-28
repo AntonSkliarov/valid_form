@@ -154,6 +154,12 @@ var validateForm = function validateForm(event) {
     input: document.getElementById('surname'),
     container: document.querySelector('#surname-container'),
     errorText: null
+  };
+  var phone = {
+    title: 'Phone',
+    input: document.getElementById('phone'),
+    container: document.querySelector('#phone-container'),
+    errorText: null
   }; // text type validation start
 
   var validateTextTypeInput = function validateTextTypeInput(el) {
@@ -161,7 +167,7 @@ var validateForm = function validateForm(event) {
     var elementValue = textTypeElement.input.value.trim();
 
     if (elementValue === '') {
-      textTypeElement.errorText = 'Field name cannot be empty';
+      textTypeElement.errorText = "Field ".concat(textTypeElement.title.toLowerCase(), " cannot be empty");
 
       var errorElement = _functions.default.createErrorElement(textTypeElement);
 
@@ -173,7 +179,7 @@ var validateForm = function validateForm(event) {
     }
 
     if (elementValue.length < 3) {
-      textTypeElement.errorText = 'Name must be minimum 3 characters';
+      textTypeElement.errorText = "".concat(textTypeElement.title, " must be minimum 3 characters");
 
       var _errorElement = _functions.default.createErrorElement(textTypeElement);
 
@@ -185,7 +191,7 @@ var validateForm = function validateForm(event) {
     }
 
     if (elementValue.length >= 20) {
-      textTypeElement.errorText = 'Name must be less than 20 characters';
+      textTypeElement.errorText = "".concat(textTypeElement.title, " must be less than 20 characters");
 
       var _errorElement2 = _functions.default.createErrorElement(textTypeElement);
 
@@ -201,6 +207,41 @@ var validateForm = function validateForm(event) {
 
   isFieldsValid.push(validateTextTypeInput(name));
   isFieldsValid.push(validateTextTypeInput(surname)); // text type validation end
+  // phone validation start
+
+  var validateTelTypeInput = function validateTelTypeInput() {
+    var phoneValue = phone.input.value.trim();
+
+    if (phoneValue === '') {
+      phone.errorText = "Field ".concat(phone.title.toLowerCase(), " cannot be empty");
+
+      var errorElement = _functions.default.createErrorElement(phone);
+
+      phone.container.append(errorElement);
+      setTimeout(function () {
+        errorElement.remove();
+      }, 2000);
+      return false;
+    }
+
+    var regex = /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/;
+
+    if (!regex.test(phoneValue)) {
+      phone.errorText = 'Phone format does not match';
+
+      var _errorElement3 = _functions.default.createErrorElement(phone);
+
+      phone.container.append(_errorElement3);
+      setTimeout(function () {
+        _errorElement3.remove();
+      }, 4000);
+      return false;
+    }
+
+    return true;
+  };
+
+  isFieldsValid.push(validateTelTypeInput()); // phone validation end
 
   var isAllFieldsValid = isFieldsValid.every(function (fieldValid) {
     return fieldValid === true;
@@ -241,7 +282,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50701" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53307" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
