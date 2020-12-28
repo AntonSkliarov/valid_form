@@ -4,8 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valid form</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.sass">
+    <script 
+      type="module"
+      src="scripts/validForm.js"
+      defer
+    >
+    </script>
   </head>
   <body>
-    <h1>Valid form</h1>
+
+    <!-- form start -->
+    <div class="form-container">
+      <form 
+        class="user-form"
+        action="#"
+        method="post"
+      >
+
+        <!-- name input start -->
+        <div class="user-form__input-container">
+          <label class="user-form__name-label" for="name">
+            Name:
+            <input
+              class="user-form__name-input"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              autocomplete="off"
+            >
+          </label>
+        </div>
+        <!-- name input end -->
+
+        <!-- surname input start -->
+        <div class="user-form__input-container">
+          <label class="user-form__surname-label" for="surname">
+            Surname:
+            <input 
+              class="user-form__surname-input"
+              type="text"
+              name="surname"
+              id="surname"
+              placeholder="Enter your surname"
+              autocomplete="off"
+            >
+          </label>
+        </div>
+        <!-- surname input end -->
+
+        <!-- phone input start -->
+        <div class="user-form__input-container">
+          <label class="user-form__phone-label" for="phone">
+            Phone:
+            <input
+              class="user-form__phone-input"
+              type="tel"
+              name="phone"
+              id="phone"
+              placeholder="Enter your phone"
+              autocomplete="off"
+            >
+          </label>
+        </div>
+        <!-- phone input start -->
+
+        <!-- password input start -->
+        <div class="user-form__input-container">
+          <label class="user-form__pass-label" for="pass">
+            Password:
+            <input
+              class="user-form__pass-input"
+              type="password"
+              name="pass"
+              id="pass"
+              placeholder="Enter your password"
+              autocomplete="off"
+            >
+          </label>
+        </div>
+        <!-- password input end -->
+
+        <!-- submit button start -->
+        <div class="user-form__button-container">
+          <button class="user-form__submit-button" type="submit">
+            Submit
+          </button>
+        </div>
+        <!-- submit button end -->
+
+      </form>
+    </div>
+    <!-- form end -->
   </body>
 </html>

@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+*::before, *::after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, p, li, figure, figcaption, blockquote, dl, dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class], ol[class] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+.form-container {
+  width: 370px;
+  padding: 40px;
+}
+
+.user-form__input-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+.user-form__name-input, .user-form__surname-input, .user-form__phone-input, .user-form__pass-input {
+  position: absolute;
+  right: 0;
+}
+
+/*# sourceMappingURL=/main.22a94128.css.map */
