@@ -31,6 +31,13 @@ const validateForm = (event) => {
     errorText: null,
   };
 
+  const pass = {
+    title: 'Password',
+    input: document.getElementById('pass'),
+    container: document.querySelector('#pass-container'),
+    errorText: null,
+  };
+
   // text type validation start
   const validateTextTypeInput = (el) => {
     const textTypeElement = el;
@@ -152,11 +159,50 @@ const validateForm = (event) => {
 
       return false;
     }
+
     return true;
   };
 
   isFieldsValid.push(validateEmailTypeInput());
-  // email validation start
+  // email validation end
+
+  // pass validation start
+  const validatePasswordTypeInput = () => {
+    const passValue = pass.input.value.trim();
+
+    if (passValue === '') {
+      pass.errorText = `Field ${pass.title.toLowerCase()} cannot be empty`;
+
+      const errorElement = FUNC.createErrorElement(pass);
+      pass.container.append(errorElement);
+
+      setTimeout(() => {
+        errorElement.remove();
+      }, 2000);
+
+      return false;
+    }
+
+    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+    if (!regex.test(passValue)) {
+      pass.errorText = `${pass.title} format does not match`;
+
+      const errorElement = FUNC.createErrorElement(pass);
+      pass.container.append(errorElement);
+
+      setTimeout(() => {
+        errorElement.remove();
+      }, 2000);
+
+      return false;
+    }
+
+    return true;
+  };
+
+  isFieldsValid.push(validatePasswordTypeInput());
+  // pass validation end
 
   const isAllFieldsValid = isFieldsValid.every((fieldValid) => fieldValid === true);
 

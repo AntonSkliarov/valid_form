@@ -166,6 +166,12 @@ var validateForm = function validateForm(event) {
     input: document.getElementById('email'),
     container: document.querySelector('#email-container'),
     errorText: null
+  };
+  var pass = {
+    title: 'Password',
+    input: document.getElementById('pass'),
+    container: document.querySelector('#pass-container'),
+    errorText: null
   }; // text type validation start
 
   var validateTextTypeInput = function validateTextTypeInput(el) {
@@ -282,7 +288,42 @@ var validateForm = function validateForm(event) {
     return true;
   };
 
-  isFieldsValid.push(validateEmailTypeInput()); // email validation start
+  isFieldsValid.push(validateEmailTypeInput()); // email validation end
+  // pass validation start
+
+  var validatePasswordTypeInput = function validatePasswordTypeInput() {
+    var passValue = pass.input.value.trim();
+
+    if (passValue === '') {
+      pass.errorText = "Field ".concat(pass.title.toLowerCase(), " cannot be empty");
+
+      var errorElement = _functions.default.createErrorElement(pass);
+
+      pass.container.append(errorElement);
+      setTimeout(function () {
+        errorElement.remove();
+      }, 2000);
+      return false;
+    }
+
+    var regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+    if (!regex.test(passValue)) {
+      pass.errorText = "".concat(pass.title, " format does not match");
+
+      var _errorElement5 = _functions.default.createErrorElement(pass);
+
+      pass.container.append(_errorElement5);
+      setTimeout(function () {
+        _errorElement5.remove();
+      }, 2000);
+      return false;
+    }
+
+    return true;
+  };
+
+  isFieldsValid.push(validatePasswordTypeInput()); // pass validation end
 
   var isAllFieldsValid = isFieldsValid.every(function (fieldValid) {
     return fieldValid === true;
@@ -323,7 +364,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52863" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55061" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
