@@ -103,14 +103,14 @@ const validateForm = (event) => {
     const regex = /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/;
 
     if (!regex.test(phoneValue)) {
-      phone.errorText = 'Phone format does not match';
+      phone.errorText = `${phone.title} format does not match`;
 
       const errorElement = FUNC.createErrorElement(phone);
       phone.container.append(errorElement);
 
       setTimeout(() => {
         errorElement.remove();
-      }, 4000);
+      }, 2000);
 
       return false;
     }
@@ -122,7 +122,40 @@ const validateForm = (event) => {
   // phone validation end
 
   // email validation start
+  const validateEmailTypeInput = () => {
+    const emailValue = email.input.value.trim();
 
+    if (emailValue === '') {
+      email.errorText = `Field ${email.title.toLowerCase()} cannot be empty`;
+
+      const errorElement = FUNC.createErrorElement(email);
+      email.container.append(errorElement);
+
+      setTimeout(() => {
+        errorElement.remove();
+      }, 2000);
+
+      return false;
+    }
+
+    const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+    if (!regex.test(emailValue)) {
+      email.errorText = `${email.title} format does not match`;
+
+      const errorElement = FUNC.createErrorElement(email);
+      email.container.append(errorElement);
+
+      setTimeout(() => {
+        errorElement.remove();
+      }, 2000);
+
+      return false;
+    }
+    return true;
+  };
+
+  isFieldsValid.push(validateEmailTypeInput());
   // email validation start
 
   const isAllFieldsValid = isFieldsValid.every((fieldValid) => fieldValid === true);

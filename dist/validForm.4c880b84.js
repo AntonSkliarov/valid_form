@@ -233,14 +233,14 @@ var validateForm = function validateForm(event) {
     var regex = /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/;
 
     if (!regex.test(phoneValue)) {
-      phone.errorText = 'Phone format does not match';
+      phone.errorText = "".concat(phone.title, " format does not match");
 
       var _errorElement3 = _functions.default.createErrorElement(phone);
 
       phone.container.append(_errorElement3);
       setTimeout(function () {
         _errorElement3.remove();
-      }, 4000);
+      }, 2000);
       return false;
     }
 
@@ -249,7 +249,40 @@ var validateForm = function validateForm(event) {
 
   isFieldsValid.push(validateTelTypeInput()); // phone validation end
   // email validation start
-  // email validation start
+
+  var validateEmailTypeInput = function validateEmailTypeInput() {
+    var emailValue = email.input.value.trim();
+
+    if (emailValue === '') {
+      email.errorText = "Field ".concat(email.title.toLowerCase(), " cannot be empty");
+
+      var errorElement = _functions.default.createErrorElement(email);
+
+      email.container.append(errorElement);
+      setTimeout(function () {
+        errorElement.remove();
+      }, 2000);
+      return false;
+    }
+
+    var regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+    if (!regex.test(emailValue)) {
+      email.errorText = "".concat(email.title, " format does not match");
+
+      var _errorElement4 = _functions.default.createErrorElement(email);
+
+      email.container.append(_errorElement4);
+      setTimeout(function () {
+        _errorElement4.remove();
+      }, 2000);
+      return false;
+    }
+
+    return true;
+  };
+
+  isFieldsValid.push(validateEmailTypeInput()); // email validation start
 
   var isAllFieldsValid = isFieldsValid.every(function (fieldValid) {
     return fieldValid === true;
@@ -290,7 +323,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52651" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52863" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
