@@ -3,38 +3,30 @@ import FUNC from '../helpers/_functions';
 const validateForm = (event) => {
   const isFieldsValid = [];
   const name = {
+    title: 'Name',
     input: document.getElementById('name'),
     container: document.querySelector('#name-container'),
     errorText: null,
   };
 
   const surname = {
+    title: 'Surname',
     input: document.getElementById('surname'),
     container: document.querySelector('#surname-container'),
     errorText: null,
   };
 
-  // name validation start
-  const validateName = () => {
-    const nameValue = name.input.value.trim();
+  // text type validation start
+  const validateTextTypeInput = (el) => {
+    const textTypeElement = el;
 
-    if (nameValue === '') {
-      name.errorText = 'Field name cannot be empty';
+    const elementValue = textTypeElement.input.value.trim();
 
-      const errorElement = FUNC.createErrorElement(name);
-      name.container.append(errorElement);
+    if (elementValue === '') {
+      textTypeElement.errorText = 'Field name cannot be empty';
 
-      setTimeout(() => {
-        errorElement.remove();
-      }, 2000);
-
-      return false;
-    }
-
-    if (nameValue.length < 3) {
-      name.errorText = 'Name must be minimum 3 characters';
-      const errorElement = FUNC.createErrorElement(name);
-      name.container.append(errorElement);
+      const errorElement = FUNC.createErrorElement(textTypeElement);
+      textTypeElement.container.append(errorElement);
 
       setTimeout(() => {
         errorElement.remove();
@@ -43,10 +35,22 @@ const validateForm = (event) => {
       return false;
     }
 
-    if (nameValue.length >= 20) {
-      name.errorText = 'Name must be less than 20 characters';
-      const errorElement = FUNC.createErrorElement(name);
-      name.container.append(errorElement);
+    if (elementValue.length < 3) {
+      textTypeElement.errorText = 'Name must be minimum 3 characters';
+      const errorElement = FUNC.createErrorElement(textTypeElement);
+      textTypeElement.container.append(errorElement);
+
+      setTimeout(() => {
+        errorElement.remove();
+      }, 2000);
+
+      return false;
+    }
+
+    if (elementValue.length >= 20) {
+      textTypeElement.errorText = 'Name must be less than 20 characters';
+      const errorElement = FUNC.createErrorElement(textTypeElement);
+      textTypeElement.container.append(errorElement);
 
       setTimeout(() => {
         errorElement.remove();
@@ -58,8 +62,9 @@ const validateForm = (event) => {
     return true;
   };
 
-  isFieldsValid.push(validateName());
-  // name validation end
+  isFieldsValid.push(validateTextTypeInput(name));
+  isFieldsValid.push(validateTextTypeInput(surname));
+  // text type validation end
 
   const isAllFieldsValid = isFieldsValid.every((fieldValid) => fieldValid === true);
 
