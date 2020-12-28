@@ -144,49 +144,52 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var validateForm = function validateForm(event) {
   var isFieldsValid = [];
   var name = {
+    title: 'Name',
     input: document.getElementById('name'),
     container: document.querySelector('#name-container'),
     errorText: null
   };
   var surname = {
+    title: 'Surname',
     input: document.getElementById('surname'),
     container: document.querySelector('#surname-container'),
     errorText: null
-  }; // name validation start
+  }; // text type validation start
 
-  var validateName = function validateName() {
-    var nameValue = name.input.value.trim();
+  var validateTextTypeInput = function validateTextTypeInput(el) {
+    var textTypeElement = el;
+    var elementValue = textTypeElement.input.value.trim();
 
-    if (nameValue === '') {
-      name.errorText = 'Field name cannot be empty';
+    if (elementValue === '') {
+      textTypeElement.errorText = 'Field name cannot be empty';
 
-      var errorElement = _functions.default.createErrorElement(name);
+      var errorElement = _functions.default.createErrorElement(textTypeElement);
 
-      name.container.append(errorElement);
+      textTypeElement.container.append(errorElement);
       setTimeout(function () {
         errorElement.remove();
       }, 2000);
       return false;
     }
 
-    if (nameValue.length < 3) {
-      name.errorText = 'Name must be minimum 3 characters';
+    if (elementValue.length < 3) {
+      textTypeElement.errorText = 'Name must be minimum 3 characters';
 
-      var _errorElement = _functions.default.createErrorElement(name);
+      var _errorElement = _functions.default.createErrorElement(textTypeElement);
 
-      name.container.append(_errorElement);
+      textTypeElement.container.append(_errorElement);
       setTimeout(function () {
         _errorElement.remove();
       }, 2000);
       return false;
     }
 
-    if (nameValue.length >= 20) {
-      name.errorText = 'Name must be less than 20 characters';
+    if (elementValue.length >= 20) {
+      textTypeElement.errorText = 'Name must be less than 20 characters';
 
-      var _errorElement2 = _functions.default.createErrorElement(name);
+      var _errorElement2 = _functions.default.createErrorElement(textTypeElement);
 
-      name.container.append(_errorElement2);
+      textTypeElement.container.append(_errorElement2);
       setTimeout(function () {
         _errorElement2.remove();
       }, 2000);
@@ -196,7 +199,8 @@ var validateForm = function validateForm(event) {
     return true;
   };
 
-  isFieldsValid.push(validateName()); // name validation end
+  isFieldsValid.push(validateTextTypeInput(name));
+  isFieldsValid.push(validateTextTypeInput(surname)); // text type validation end
 
   var isAllFieldsValid = isFieldsValid.every(function (fieldValid) {
     return fieldValid === true;
@@ -237,7 +241,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62187" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50701" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
