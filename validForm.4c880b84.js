@@ -117,9 +117,99 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"scripts/validForm.js":[function(require,module,exports) {
+})({"helpers/_functions.js":[function(require,module,exports) {
+"use strict";
 
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var FUNC = {
+  createErrorElement: function createErrorElement(elementName) {
+    var errorElement = document.createElement('p');
+    errorElement.innerHTML = elementName.errorText;
+    errorElement.setAttribute('class', 'error');
+    return errorElement;
+  }
+};
+var _default = FUNC;
+exports.default = _default;
+},{}],"scripts/validForm.js":[function(require,module,exports) {
+"use strict";
+
+var _functions = _interopRequireDefault(require("../helpers/_functions"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var validateForm = function validateForm(event) {
+  var isFieldsValid = [];
+  var name = {
+    input: document.getElementById('name'),
+    container: document.querySelector('#name-container'),
+    errorText: null
+  };
+  var surname = {
+    input: document.getElementById('surname'),
+    container: document.querySelector('#surname-container'),
+    errorText: null
+  }; // name validation start
+
+  var validateName = function validateName() {
+    var nameValue = name.input.value.trim();
+
+    if (nameValue === '') {
+      name.errorText = 'Field name cannot be empty';
+
+      var errorElement = _functions.default.createErrorElement(name);
+
+      name.container.append(errorElement);
+      setTimeout(function () {
+        errorElement.remove();
+      }, 2000);
+      return false;
+    }
+
+    if (nameValue.length < 3) {
+      name.errorText = 'Name must be minimum 3 characters';
+
+      var _errorElement = _functions.default.createErrorElement(name);
+
+      name.container.append(_errorElement);
+      setTimeout(function () {
+        _errorElement.remove();
+      }, 2000);
+      return false;
+    }
+
+    if (nameValue.length >= 20) {
+      name.errorText = 'Name must be less than 20 characters';
+
+      var _errorElement2 = _functions.default.createErrorElement(name);
+
+      name.container.append(_errorElement2);
+      setTimeout(function () {
+        _errorElement2.remove();
+      }, 2000);
+      return false;
+    }
+
+    return true;
+  };
+
+  isFieldsValid.push(validateName()); // name validation end
+
+  var isAllFieldsValid = isFieldsValid.every(function (fieldValid) {
+    return fieldValid === true;
+  });
+
+  if (!isAllFieldsValid) {
+    event.preventDefault();
+  }
+};
+
+var form = document.querySelector('.user-form');
+form.addEventListener('submit', validateForm);
+},{"../helpers/_functions":"helpers/_functions.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +237,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56016" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62187" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
