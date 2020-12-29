@@ -8,6 +8,7 @@ const validateForm = (event) => {
     input: document.getElementById('name'),
     container: document.querySelector('#name-container'),
     errorText: null,
+    errorElement: null,
   };
 
   const surname = {
@@ -15,6 +16,7 @@ const validateForm = (event) => {
     input: document.getElementById('surname'),
     container: document.querySelector('#surname-container'),
     errorText: null,
+    errorElement: null,
   };
 
   const phone = {
@@ -40,28 +42,28 @@ const validateForm = (event) => {
 
   // text type validation start
   const validateTextTypeInput = (el) => {
-    const textTypeElement = el;
+    const textTypeInput = el;
 
-    const elementValue = textTypeElement.input.value.trim();
+    const elementValue = textTypeInput.input.value.trim();
 
     if (elementValue === '') {
-      textTypeElement.errorText = `Field ${textTypeElement.title.toLowerCase()} cannot be empty`;
+      textTypeInput.errorText = `Field ${textTypeInput.title.toLowerCase()} cannot be empty`;
 
-      const errorElement = FUNC.createErrorElement(textTypeElement);
-      textTypeElement.container.append(errorElement);
+      textTypeInput.errorElement = FUNC.createErrorElement(textTypeInput);
+      textTypeInput.container.append(textTypeInput.errorElement);
 
       setTimeout(() => {
-        errorElement.remove();
+        textTypeInput.errorElement.remove();
       }, 2000);
 
       return false;
     }
 
     if (elementValue.length < 3) {
-      textTypeElement.errorText = `${textTypeElement.title} must be minimum 3 characters`;
+      textTypeInput.errorText = `${textTypeInput.title} must be minimum 3 characters`;
 
-      const errorElement = FUNC.createErrorElement(textTypeElement);
-      textTypeElement.container.append(errorElement);
+      const errorElement = FUNC.createErrorElement(textTypeInput);
+      textTypeInput.container.append(errorElement);
 
       setTimeout(() => {
         errorElement.remove();
@@ -71,10 +73,10 @@ const validateForm = (event) => {
     }
 
     if (elementValue.length >= 20) {
-      textTypeElement.errorText = `${textTypeElement.title} must be less than 20 characters`;
+      textTypeInput.errorText = `${textTypeInput.title} must be less than 20 characters`;
 
-      const errorElement = FUNC.createErrorElement(textTypeElement);
-      textTypeElement.container.append(errorElement);
+      const errorElement = FUNC.createErrorElement(textTypeInput);
+      textTypeInput.container.append(errorElement);
 
       setTimeout(() => {
         errorElement.remove();
@@ -210,6 +212,11 @@ const validateForm = (event) => {
     event.preventDefault();
   }
 };
+
+// name.input.onfocus = () => {
+//   console.log('onfocus working');
+//   name.errorElement.remove();
+// };
 
 const form = document.querySelector('.user-form');
 form.addEventListener('submit', validateForm);

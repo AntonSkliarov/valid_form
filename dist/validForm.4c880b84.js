@@ -147,13 +147,15 @@ var validateForm = function validateForm(event) {
     title: 'Name',
     input: document.getElementById('name'),
     container: document.querySelector('#name-container'),
-    errorText: null
+    errorText: null,
+    errorElement: null
   };
   var surname = {
     title: 'Surname',
     input: document.getElementById('surname'),
     container: document.querySelector('#surname-container'),
-    errorText: null
+    errorText: null,
+    errorElement: null
   };
   var phone = {
     title: 'Phone',
@@ -175,41 +177,39 @@ var validateForm = function validateForm(event) {
   }; // text type validation start
 
   var validateTextTypeInput = function validateTextTypeInput(el) {
-    var textTypeElement = el;
-    var elementValue = textTypeElement.input.value.trim();
+    var textTypeInput = el;
+    var elementValue = textTypeInput.input.value.trim();
 
     if (elementValue === '') {
-      textTypeElement.errorText = "Field ".concat(textTypeElement.title.toLowerCase(), " cannot be empty");
+      textTypeInput.errorText = "Field ".concat(textTypeInput.title.toLowerCase(), " cannot be empty");
+      textTypeInput.errorElement = _functions.default.createErrorElement(textTypeInput);
+      textTypeInput.container.append(textTypeInput.errorElement);
+      setTimeout(function () {
+        textTypeInput.errorElement.remove();
+      }, 2000);
+      return false;
+    }
 
-      var errorElement = _functions.default.createErrorElement(textTypeElement);
+    if (elementValue.length < 3) {
+      textTypeInput.errorText = "".concat(textTypeInput.title, " must be minimum 3 characters");
 
-      textTypeElement.container.append(errorElement);
+      var errorElement = _functions.default.createErrorElement(textTypeInput);
+
+      textTypeInput.container.append(errorElement);
       setTimeout(function () {
         errorElement.remove();
       }, 2000);
       return false;
     }
 
-    if (elementValue.length < 3) {
-      textTypeElement.errorText = "".concat(textTypeElement.title, " must be minimum 3 characters");
+    if (elementValue.length >= 20) {
+      textTypeInput.errorText = "".concat(textTypeInput.title, " must be less than 20 characters");
 
-      var _errorElement = _functions.default.createErrorElement(textTypeElement);
+      var _errorElement = _functions.default.createErrorElement(textTypeInput);
 
-      textTypeElement.container.append(_errorElement);
+      textTypeInput.container.append(_errorElement);
       setTimeout(function () {
         _errorElement.remove();
-      }, 2000);
-      return false;
-    }
-
-    if (elementValue.length >= 20) {
-      textTypeElement.errorText = "".concat(textTypeElement.title, " must be less than 20 characters");
-
-      var _errorElement2 = _functions.default.createErrorElement(textTypeElement);
-
-      textTypeElement.container.append(_errorElement2);
-      setTimeout(function () {
-        _errorElement2.remove();
       }, 2000);
       return false;
     }
@@ -241,11 +241,11 @@ var validateForm = function validateForm(event) {
     if (!regex.test(phoneValue)) {
       phone.errorText = "".concat(phone.title, " format does not match");
 
-      var _errorElement3 = _functions.default.createErrorElement(phone);
+      var _errorElement2 = _functions.default.createErrorElement(phone);
 
-      phone.container.append(_errorElement3);
+      phone.container.append(_errorElement2);
       setTimeout(function () {
-        _errorElement3.remove();
+        _errorElement2.remove();
       }, 2000);
       return false;
     }
@@ -276,11 +276,11 @@ var validateForm = function validateForm(event) {
     if (!regex.test(emailValue)) {
       email.errorText = "".concat(email.title, " format does not match");
 
-      var _errorElement4 = _functions.default.createErrorElement(email);
+      var _errorElement3 = _functions.default.createErrorElement(email);
 
-      email.container.append(_errorElement4);
+      email.container.append(_errorElement3);
       setTimeout(function () {
-        _errorElement4.remove();
+        _errorElement3.remove();
       }, 2000);
       return false;
     }
@@ -311,11 +311,11 @@ var validateForm = function validateForm(event) {
     if (!regex.test(passValue)) {
       pass.errorText = "".concat(pass.title, " format does not match");
 
-      var _errorElement5 = _functions.default.createErrorElement(pass);
+      var _errorElement4 = _functions.default.createErrorElement(pass);
 
-      pass.container.append(_errorElement5);
+      pass.container.append(_errorElement4);
       setTimeout(function () {
-        _errorElement5.remove();
+        _errorElement4.remove();
       }, 2000);
       return false;
     }
@@ -332,7 +332,11 @@ var validateForm = function validateForm(event) {
   if (!isAllFieldsValid) {
     event.preventDefault();
   }
-};
+}; // name.input.onfocus = () => {
+//   console.log('onfocus working');
+//   name.errorElement.remove();
+// };
+
 
 var form = document.querySelector('.user-form');
 form.addEventListener('submit', validateForm);
@@ -364,7 +368,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55061" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51922" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
