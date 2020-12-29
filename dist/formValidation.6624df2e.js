@@ -153,7 +153,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.REGEX = exports.TEXT_LENGTH = exports.INPUT_TYPES = exports.DOM = exports.INPUTS = void 0;
 var INPUTS = [{
   title: 'Name',
   type: 'text',
@@ -195,14 +195,35 @@ var INPUTS = [{
   errorElement: null,
   isValid: false
 }];
-var _default = INPUTS;
-exports.default = _default;
+exports.INPUTS = INPUTS;
+var DOM = {
+  form: document.querySelector('.user-form')
+};
+exports.DOM = DOM;
+var INPUT_TYPES = {
+  text: 'text',
+  phone: 'tel',
+  email: 'email',
+  pass: 'password'
+};
+exports.INPUT_TYPES = INPUT_TYPES;
+var TEXT_LENGTH = {
+  min: 3,
+  max: 20
+};
+exports.TEXT_LENGTH = TEXT_LENGTH;
+var REGEX = {
+  email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+  phone: /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/,
+  pass: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
+};
+exports.REGEX = REGEX;
 },{}],"scripts/formValidation.js":[function(require,module,exports) {
 "use strict";
 
 var _functions = _interopRequireDefault(require("../helpers/_functions"));
 
-var _constants = _interopRequireDefault(require("../helpers/_constants"));
+var _constants = require("../helpers/_constants");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -214,7 +235,7 @@ var inputValidation = function inputValidation(element) {
   formElement.input.onfocus = function () {
     if (formElement.errorElement) {
       formElement.errorElement.remove();
-      isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+      isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
     }
   };
 
@@ -226,85 +247,79 @@ var inputValidation = function inputValidation(element) {
 
       _functions.default.appendError(formElement);
 
-      isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+      isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
       return;
     }
 
-    if (formElement.type === 'text') {
-      if (inputValue.length < 3) {
+    if (formElement.type === _constants.INPUT_TYPES.text) {
+      if (inputValue.length < _constants.TEXT_LENGTH.min) {
         formElement.errorText = "".concat(formElement.title, " must be minimum 3 characters");
 
         _functions.default.appendError(formElement);
 
-        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
         return;
       }
 
-      if (inputValue.length >= 20) {
+      if (inputValue.length >= _constants.TEXT_LENGTH.max) {
         formElement.errorText = "".concat(formElement.title, " must be less than 20 characters");
 
         _functions.default.appendError(formElement);
 
-        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
         return;
       }
     }
 
-    if (formElement.type === 'email') {
-      var regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-
-      if (!regex.test(inputValue)) {
+    if (formElement.type === _constants.INPUT_TYPES.email) {
+      if (!_constants.REGEX.email.test(inputValue)) {
         formElement.errorText = "".concat(formElement.title, " format does not match");
 
         _functions.default.appendError(formElement);
 
-        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
         return;
       }
     }
 
-    if (formElement.type === 'tel') {
-      var _regex = /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/;
-
-      if (!_regex.test(inputValue)) {
+    if (formElement.type === _constants.INPUT_TYPES.phone) {
+      if (!_constants.REGEX.phone.test(inputValue)) {
         formElement.errorText = "".concat(formElement.title, " format does not match");
 
         _functions.default.appendError(formElement);
 
-        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
         return;
       }
     }
 
-    if (formElement.type === 'password') {
-      var _regex2 = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-
-      if (!_regex2.test(inputValue)) {
+    if (formElement.type === _constants.INPUT_TYPES.pass) {
+      if (!_constants.REGEX.pass.test(inputValue)) {
         formElement.errorText = "".concat(formElement.title, " format does not match");
 
         _functions.default.appendError(formElement);
 
-        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.INPUTS);
         return;
       }
     }
 
     formElement.isValid = true;
-    isAllFieldsValid = _constants.default.every(function (input) {
+    isAllFieldsValid = _constants.INPUTS.every(function (input) {
       return input.isValid === true;
     });
   };
 };
 
 var formValidation = function formValidation() {
-  _constants.default.map(function (input) {
+  _constants.INPUTS.map(function (input) {
     return inputValidation(input);
   });
 };
 
 formValidation();
-var form = document.querySelector('.user-form');
-form.addEventListener('submit', function (event) {
+
+_constants.DOM.form.addEventListener('submit', function (event) {
   if (!isAllFieldsValid) {
     event.preventDefault();
   }
@@ -337,7 +352,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51908" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54103" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

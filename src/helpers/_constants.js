@@ -1,4 +1,4 @@
-const INPUTS = [
+export const INPUTS = [
   {
     title: 'Name',
     type: 'text',
@@ -46,4 +46,24 @@ const INPUTS = [
   },
 ];
 
-export default INPUTS;
+export const DOM = {
+  form: document.querySelector('.user-form'),
+};
+
+export const INPUT_TYPES = {
+  text: 'text',
+  phone: 'tel',
+  email: 'email',
+  pass: 'password',
+};
+
+export const TEXT_LENGTH = {
+  min: 3,
+  max: 20,
+};
+
+export const REGEX = {
+  email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+  phone: /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/,
+  pass: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+};

@@ -1,5 +1,11 @@
 import FUNC from '../helpers/_functions';
-import INPUTS from '../helpers/_constants';
+import {
+  INPUTS,
+  DOM,
+  INPUT_TYPES,
+  TEXT_LENGTH,
+  REGEX,
+} from '../helpers/_constants';
 
 let isAllFieldsValid = false;
 
@@ -27,8 +33,8 @@ const inputValidation = (element) => {
       return;
     }
 
-    if (formElement.type === 'text') {
-      if (inputValue.length < 3) {
+    if (formElement.type === INPUT_TYPES.text) {
+      if (inputValue.length < TEXT_LENGTH.min) {
         formElement.errorText = `${formElement.title} must be minimum 3 characters`;
 
         FUNC.appendError(formElement);
@@ -38,7 +44,7 @@ const inputValidation = (element) => {
         return;
       }
 
-      if (inputValue.length >= 20) {
+      if (inputValue.length >= TEXT_LENGTH.max) {
         formElement.errorText = `${formElement.title} must be less than 20 characters`;
 
         FUNC.appendError(formElement);
@@ -49,10 +55,8 @@ const inputValidation = (element) => {
       }
     }
 
-    if (formElement.type === 'email') {
-      const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-
-      if (!regex.test(inputValue)) {
+    if (formElement.type === INPUT_TYPES.email) {
+      if (!REGEX.email.test(inputValue)) {
         formElement.errorText = `${formElement.title} format does not match`;
 
         FUNC.appendError(formElement);
@@ -63,10 +67,8 @@ const inputValidation = (element) => {
       }
     }
 
-    if (formElement.type === 'tel') {
-      const regex = /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/;
-
-      if (!regex.test(inputValue)) {
+    if (formElement.type === INPUT_TYPES.phone) {
+      if (!REGEX.phone.test(inputValue)) {
         formElement.errorText = `${formElement.title} format does not match`;
 
         FUNC.appendError(formElement);
@@ -77,10 +79,8 @@ const inputValidation = (element) => {
       }
     }
 
-    if (formElement.type === 'password') {
-      const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-
-      if (!regex.test(inputValue)) {
+    if (formElement.type === INPUT_TYPES.pass) {
+      if (!REGEX.pass.test(inputValue)) {
         formElement.errorText = `${formElement.title} format does not match`;
 
         FUNC.appendError(formElement);
@@ -103,8 +103,7 @@ const formValidation = () => {
 
 formValidation();
 
-const form = document.querySelector('.user-form');
-form.addEventListener('submit', (event) => {
+DOM.form.addEventListener('submit', (event) => {
   if (!isAllFieldsValid) {
     event.preventDefault();
   }
