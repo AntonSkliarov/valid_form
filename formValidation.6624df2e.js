@@ -130,6 +130,19 @@ var FUNC = {
     errorElement.innerHTML = elementName.errorText;
     errorElement.setAttribute('class', 'error');
     return errorElement;
+  },
+  setNotValid: function setNotValid(el, inputs) {
+    var element = el;
+    element.isValid = false;
+    var isAllFieldsValid = inputs.every(function (input) {
+      return input.isValid === true;
+    });
+    return isAllFieldsValid;
+  },
+  appendError: function appendError(el) {
+    var element = el;
+    element.errorElement = FUNC.createErrorElement(element);
+    element.container.append(element.errorElement);
   }
 };
 var _default = FUNC;
@@ -201,10 +214,7 @@ var inputValidation = function inputValidation(element) {
   formElement.input.onfocus = function () {
     if (formElement.errorElement) {
       formElement.errorElement.remove();
-      formElement.isValid = false;
-      isAllFieldsValid = _constants.default.every(function (input) {
-        return input.isValid === true;
-      });
+      isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
     }
   };
 
@@ -213,35 +223,29 @@ var inputValidation = function inputValidation(element) {
 
     if (inputValue === '') {
       formElement.errorText = "Field ".concat(formElement.title.toLowerCase(), " cannot be empty");
-      formElement.errorElement = _functions.default.createErrorElement(formElement);
-      formElement.container.append(formElement.errorElement);
-      formElement.isValid = false;
-      isAllFieldsValid = _constants.default.every(function (input) {
-        return input.isValid === true;
-      });
+
+      _functions.default.appendError(formElement);
+
+      isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
       return;
     }
 
     if (formElement.type === 'text') {
       if (inputValue.length < 3) {
         formElement.errorText = "".concat(formElement.title, " must be minimum 3 characters");
-        formElement.errorElement = _functions.default.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
-        formElement.isValid = false;
-        isAllFieldsValid = _constants.default.every(function (input) {
-          return input.isValid === true;
-        });
+
+        _functions.default.appendError(formElement);
+
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
         return;
       }
 
       if (inputValue.length >= 20) {
         formElement.errorText = "".concat(formElement.title, " must be less than 20 characters");
-        formElement.errorElement = _functions.default.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
-        formElement.isValid = false;
-        isAllFieldsValid = _constants.default.every(function (input) {
-          return input.isValid === true;
-        });
+
+        _functions.default.appendError(formElement);
+
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
         return;
       }
     }
@@ -251,12 +255,10 @@ var inputValidation = function inputValidation(element) {
 
       if (!regex.test(inputValue)) {
         formElement.errorText = "".concat(formElement.title, " format does not match");
-        formElement.errorElement = _functions.default.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
-        formElement.isValid = false;
-        isAllFieldsValid = _constants.default.every(function (input) {
-          return input.isValid === true;
-        });
+
+        _functions.default.appendError(formElement);
+
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
         return;
       }
     }
@@ -266,12 +268,10 @@ var inputValidation = function inputValidation(element) {
 
       if (!_regex.test(inputValue)) {
         formElement.errorText = "".concat(formElement.title, " format does not match");
-        formElement.errorElement = _functions.default.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
-        formElement.isValid = false;
-        isAllFieldsValid = _constants.default.every(function (input) {
-          return input.isValid === true;
-        });
+
+        _functions.default.appendError(formElement);
+
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
         return;
       }
     }
@@ -281,12 +281,10 @@ var inputValidation = function inputValidation(element) {
 
       if (!_regex2.test(inputValue)) {
         formElement.errorText = "".concat(formElement.title, " format does not match");
-        formElement.errorElement = _functions.default.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
-        formElement.isValid = false;
-        isAllFieldsValid = _constants.default.every(function (input) {
-          return input.isValid === true;
-        });
+
+        _functions.default.appendError(formElement);
+
+        isAllFieldsValid = _functions.default.setNotValid(formElement, _constants.default);
         return;
       }
     }
@@ -339,7 +337,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51922" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51908" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
