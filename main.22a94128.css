@@ -1,3 +1,29 @@
+.error {
+  position: absolute;
+  left: 140px;
+  margin-top: 7px;
+  color: #ff0000;
+}
+
+.user-form__input-container {
+  margin-bottom: 40px;
+}
+.user-form__label {
+  position: relative;
+  font-weight: 700;
+}
+.user-form__input {
+  position: absolute;
+  left: 100px;
+  width: 250px;
+  font-weight: 400;
+}
+
+.form-container {
+  width: 500px;
+  padding: 40px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -34,34 +60,8 @@ input, button, textarea, select {
   font: inherit;
 }
 
-.form-container {
-  width: 500px;
-  padding: 40px;
-}
-
-.user-form__input-container {
-  margin-bottom: 40px;
-}
-.user-form__label {
-  position: relative;
-  font-weight: 700;
-}
-.user-form__input {
-  position: absolute;
-  left: 100px;
-  width: 250px;
-  font-weight: 400;
-}
-
 html {
   font-family: "Roboto", "Arial", sans-serif;
-}
-
-.error {
-  position: absolute;
-  left: 140px;
-  margin-top: 7px;
-  color: #ff0000;
 }
 
 /*# sourceMappingURL=/main.22a94128.css.map */
