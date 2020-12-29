@@ -6,6 +6,21 @@ const FUNC = {
 
     return errorElement;
   },
+  setNotValid: (el, inputs) => {
+    const element = el;
+
+    element.isValid = false;
+    const isAllFieldsValid = inputs.every((input) => input.isValid === true);
+
+    return isAllFieldsValid;
+  },
+
+  appendError: (el) => {
+    const element = el;
+
+    element.errorElement = FUNC.createErrorElement(element);
+    element.container.append(element.errorElement);
+  },
 };
 
 export default FUNC;

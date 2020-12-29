@@ -10,8 +10,7 @@ const inputValidation = (element) => {
     if (formElement.errorElement) {
       formElement.errorElement.remove();
 
-      formElement.isValid = false;
-      isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+      isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
     }
   };
 
@@ -20,11 +19,10 @@ const inputValidation = (element) => {
 
     if (inputValue === '') {
       formElement.errorText = `Field ${formElement.title.toLowerCase()} cannot be empty`;
-      formElement.errorElement = FUNC.createErrorElement(formElement);
-      formElement.container.append(formElement.errorElement);
 
-      formElement.isValid = false;
-      isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+      FUNC.appendError(formElement);
+
+      isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
 
       return;
     }
@@ -32,22 +30,20 @@ const inputValidation = (element) => {
     if (formElement.type === 'text') {
       if (inputValue.length < 3) {
         formElement.errorText = `${formElement.title} must be minimum 3 characters`;
-        formElement.errorElement = FUNC.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
 
-        formElement.isValid = false;
-        isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+        FUNC.appendError(formElement);
+
+        isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
 
         return;
       }
 
       if (inputValue.length >= 20) {
         formElement.errorText = `${formElement.title} must be less than 20 characters`;
-        formElement.errorElement = FUNC.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
 
-        formElement.isValid = false;
-        isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+        FUNC.appendError(formElement);
+
+        isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
 
         return;
       }
@@ -58,11 +54,10 @@ const inputValidation = (element) => {
 
       if (!regex.test(inputValue)) {
         formElement.errorText = `${formElement.title} format does not match`;
-        formElement.errorElement = FUNC.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
 
-        formElement.isValid = false;
-        isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+        FUNC.appendError(formElement);
+
+        isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
 
         return;
       }
@@ -73,11 +68,10 @@ const inputValidation = (element) => {
 
       if (!regex.test(inputValue)) {
         formElement.errorText = `${formElement.title} format does not match`;
-        formElement.errorElement = FUNC.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
 
-        formElement.isValid = false;
-        isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+        FUNC.appendError(formElement);
+
+        isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
 
         return;
       }
@@ -88,11 +82,10 @@ const inputValidation = (element) => {
 
       if (!regex.test(inputValue)) {
         formElement.errorText = `${formElement.title} format does not match`;
-        formElement.errorElement = FUNC.createErrorElement(formElement);
-        formElement.container.append(formElement.errorElement);
 
-        formElement.isValid = false;
-        isAllFieldsValid = INPUTS.every((input) => input.isValid === true);
+        FUNC.appendError(formElement);
+
+        isAllFieldsValid = FUNC.setNotValid(formElement, INPUTS);
 
         return;
       }
