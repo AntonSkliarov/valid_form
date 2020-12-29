@@ -1,10 +1,14 @@
+@import "../helpers/_vars"
+
 .user-form
   &__input-container
     margin-bottom: 40px
+    position: relative
 
   &__label
     position: relative
 
+    color: $main-color
     font-weight: 700
 
   &__input
@@ -12,5 +16,13 @@
     left: 100px
 
     width: 250px
+    padding-left: 10px
 
     font-weight: 400
+
+    border: 1px solid $main-color
+    border-radius: 15px
+    outline: none
+
+  &__button
+    margin: auto
