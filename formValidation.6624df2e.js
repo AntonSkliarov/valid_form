@@ -117,79 +117,201 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"helpers/_functions.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var FUNC = {
+  createErrorElement: function createErrorElement(elementName) {
+    var errorElement = document.createElement('p');
+    errorElement.innerHTML = elementName.errorText;
+    errorElement.setAttribute('class', 'error');
+    return errorElement;
   }
+};
+var _default = FUNC;
+exports.default = _default;
+},{}],"helpers/_constants.js":[function(require,module,exports) {
+"use strict";
 
-  return bundleURL;
-}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var INPUTS = [{
+  title: 'Name',
+  type: 'text',
+  input: document.getElementById('name'),
+  container: document.querySelector('#name-container'),
+  errorText: null,
+  errorElement: null,
+  isValid: false
+}, {
+  title: 'Surname',
+  type: 'text',
+  input: document.getElementById('surname'),
+  container: document.querySelector('#surname-container'),
+  errorText: null,
+  errorElement: null,
+  isValid: false
+}, {
+  title: 'Phone',
+  type: 'tel',
+  input: document.getElementById('phone'),
+  container: document.querySelector('#phone-container'),
+  errorText: null,
+  errorElement: null,
+  isValid: false
+}, {
+  title: 'Email',
+  type: 'email',
+  input: document.getElementById('email'),
+  container: document.querySelector('#email-container'),
+  errorText: null,
+  errorElement: null,
+  isValid: false
+}, {
+  title: 'Password',
+  type: 'password',
+  input: document.getElementById('pass'),
+  container: document.querySelector('#pass-container'),
+  errorText: null,
+  errorElement: null,
+  isValid: false
+}];
+var _default = INPUTS;
+exports.default = _default;
+},{}],"scripts/formValidation.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+var _functions = _interopRequireDefault(require("../helpers/_functions"));
 
-    if (matches) {
-      return getBaseURL(matches[0]);
+var _constants = _interopRequireDefault(require("../helpers/_constants"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isAllFieldsValid = false;
+
+var inputValidation = function inputValidation(element) {
+  var formElement = element;
+
+  formElement.input.onfocus = function () {
+    if (formElement.errorElement) {
+      formElement.errorElement.remove();
+      formElement.isValid = false;
+      isAllFieldsValid = _constants.default.every(function (input) {
+        return input.isValid === true;
+      });
     }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
   };
 
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
+  formElement.input.onblur = function () {
+    var inputValue = formElement.input.value.trim();
 
-var cssTimeout = null;
+    if (inputValue === '') {
+      formElement.errorText = "Field ".concat(formElement.title.toLowerCase(), " cannot be empty");
+      formElement.errorElement = _functions.default.createErrorElement(formElement);
+      formElement.container.append(formElement.errorElement);
+      formElement.isValid = false;
+      isAllFieldsValid = _constants.default.every(function (input) {
+        return input.isValid === true;
+      });
+      return;
+    }
 
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
+    if (formElement.type === 'text') {
+      if (inputValue.length < 3) {
+        formElement.errorText = "".concat(formElement.title, " must be minimum 3 characters");
+        formElement.errorElement = _functions.default.createErrorElement(formElement);
+        formElement.container.append(formElement.errorElement);
+        formElement.isValid = false;
+        isAllFieldsValid = _constants.default.every(function (input) {
+          return input.isValid === true;
+        });
+        return;
+      }
 
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
+      if (inputValue.length >= 20) {
+        formElement.errorText = "".concat(formElement.title, " must be less than 20 characters");
+        formElement.errorElement = _functions.default.createErrorElement(formElement);
+        formElement.container.append(formElement.errorElement);
+        formElement.isValid = false;
+        isAllFieldsValid = _constants.default.every(function (input) {
+          return input.isValid === true;
+        });
+        return;
       }
     }
 
-    cssTimeout = null;
-  }, 50);
-}
+    if (formElement.type === 'email') {
+      var regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styles/main.sass":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+      if (!regex.test(inputValue)) {
+        formElement.errorText = "".concat(formElement.title, " format does not match");
+        formElement.errorElement = _functions.default.createErrorElement(formElement);
+        formElement.container.append(formElement.errorElement);
+        formElement.isValid = false;
+        isAllFieldsValid = _constants.default.every(function (input) {
+          return input.isValid === true;
+        });
+        return;
+      }
+    }
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+    if (formElement.type === 'tel') {
+      var _regex = /^\+38\(0\d{2}\)\s\d{3}\s\d{2}\s\d{2}$/;
+
+      if (!_regex.test(inputValue)) {
+        formElement.errorText = "".concat(formElement.title, " format does not match");
+        formElement.errorElement = _functions.default.createErrorElement(formElement);
+        formElement.container.append(formElement.errorElement);
+        formElement.isValid = false;
+        isAllFieldsValid = _constants.default.every(function (input) {
+          return input.isValid === true;
+        });
+        return;
+      }
+    }
+
+    if (formElement.type === 'password') {
+      var _regex2 = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+      if (!_regex2.test(inputValue)) {
+        formElement.errorText = "".concat(formElement.title, " format does not match");
+        formElement.errorElement = _functions.default.createErrorElement(formElement);
+        formElement.container.append(formElement.errorElement);
+        formElement.isValid = false;
+        isAllFieldsValid = _constants.default.every(function (input) {
+          return input.isValid === true;
+        });
+        return;
+      }
+    }
+
+    formElement.isValid = true;
+    isAllFieldsValid = _constants.default.every(function (input) {
+      return input.isValid === true;
+    });
+  };
+};
+
+var formValidation = function formValidation() {
+  _constants.default.map(function (input) {
+    return inputValidation(input);
+  });
+};
+
+formValidation();
+var form = document.querySelector('.user-form');
+form.addEventListener('submit', function (event) {
+  if (!isAllFieldsValid) {
+    event.preventDefault();
+  }
+});
+},{"../helpers/_functions":"helpers/_functions.js","../helpers/_constants":"helpers/_constants.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -393,5 +515,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/main.22a94128.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","scripts/formValidation.js"], null)
+//# sourceMappingURL=/formValidation.6624df2e.js.map
